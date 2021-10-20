@@ -1,0 +1,40 @@
+{
+    "name": "tjmugova/laravel-flash",
+    "description": "Laravel Flash Notifications",
+    "authors": [
+        {
+            "name": "Tererai Mugova",
+            "email": "tjmugova@webstudio.co.zw"
+        }
+    ],
+    "keywords": [
+        "laravel-flash",
+        "flash-notifications",
+        "flash"
+    ],
+    "require": {
+        "php": ">=7.3",
+        "illuminate/session": "^6.0|^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tjmugova\\LaravelFlash\\": "src",
+            "Tjmugova\\LaravelFlash\\Tests\\": "tests"
+        },
+        "files": ["src/functions.php"]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tjmugova\\LaravelFlash\\LaravelFlashServiceProvider"
+            ],
+            "aliases": {
+                "Flash": "Tjmugova\\LaravelFlash\\Flash"
+            }
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.5"
+    }
+}
