@@ -1,9 +1,6 @@
 
 # Tailwind flash alert messages and validations for your Laravel apps
 
-[![Build Status](https://travis-ci.com/josegus/laravel-flash.svg?branch=master)](https://travis-ci.com/josegus/laravel-flash)
-[![Latest Stable Version](https://poser.pugx.org/josegus/laravel-flash/v)](//packagist.org/packages/josegus/laravel-flash) [![Total Downloads](https://poser.pugx.org/josegus/laravel-flash/downloads)](//packagist.org/packages/josegus/laravel-flash) [![Latest Unstable Version](https://poser.pugx.org/josegus/laravel-flash/v/unstable)](//packagist.org/packages/josegus/laravel-flash) [![License](https://poser.pugx.org/josegus/laravel-flash/license)](//packagist.org/packages/josegus/laravel-flash)
-
 This composer package offers an easy way to manage and show laravel flash message alert notifications. Works with Tailwindcss (default) and Bootstrap.
 
 It includes default messages for most commonly use actions such as "success", "error" messages,

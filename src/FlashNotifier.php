@@ -3,7 +3,7 @@
 namespace Tjmugova\LaravelFlash;
 
 use Illuminate\Support\Traits\Macroable;
-
+use Livewire\Component;
 class FlashNotifier
 {
     use Macroable;
@@ -36,63 +36,107 @@ class FlashNotifier
     /**
      * Flash an information message.
      *
-     * @param  string|null $message
+     * @param string|null $message
      * @return $this
      */
     public function info($message = null)
     {
-        return $this->message($message, 'info');
+        return $this->message($message ?? config('flash.messages.info'), 'info');
     }
 
     /**
      * Flash a success message.
      *
-     * @param  string|null $message
+     * @param string|null $message
      * @return $this
      */
     public function success($message = null)
     {
-        return $this->message($message, 'success');
+        return $this->message($message ?? config('flash.messages.success'), 'success');
     }
 
     /**
      * Flash an error message.
      *
-     * @param  string|null $message
+     * @param string|null $message
      * @return $this
      */
     public function error($message = null)
     {
-        return $this->message($message, 'danger');
+        return $this->message($message ?? config('flash.messages.error'), 'danger');
     }
 
     /**
      * Flash a warning message.
      *
-     * @param  string|null $message
+     * @param string|null $message
      * @return $this
      */
     public function warning($message = null)
     {
-        return $this->message($message, 'warning');
+        return $this->message($message ?? config('flash.messages.warning'), 'warning');
+    }
+
+    /**
+     * Flash a warning message.
+     *
+     * @param string|null $message
+     * @return $this
+     */
+    public function stored($message = null)
+    {
+        return $this->message($message ?? config('flash.messages.stored'), 'success');
+    }
+
+    /**
+     * Flash a warning message.
+     *
+     * @param string|null $message
+     * @return $this
+     */
+    public function updated($message = null)
+    {
+        return $this->message($message ?? config('flash.messages.updated'), 'success');
+    }
+
+    /**
+     * Flash a warning message.
+     *
+     * @param string|null $message
+     * @return $this
+     */
+    public function deleted($message = null)
+    {
+        return $this->message($message ?? config('flash.messages.deleted'), 'success');
+    }
+
+    /**
+     * Flash a warning message.
+     *
+     * @param string|null $message
+     * @return $this
+     */
+    public function queued($message = null)
+    {
+        return $this->message($message ?? config('flash.messages.queued'), 'success');
     }
 
     /**
      * Flash a general message.
      *
-     * @param  string|null $message
-     * @param  string|null $level
+     * @param string|null $message
+     * @param string|null $level
      * @return $this
      */
     public function message($message = null, $level = null)
     {
         // If no message was provided, we should update
         // the most recently added message.
-        if (! $message) {
+        if (!$message) {
             return $this->updateLastMessage(compact('level'));
         }
 
-        if (! $message instanceof Message) {
+        if (!$message instanceof Message) {
             $message = new Message(compact('message', 'level'));
         }
 
@@ -104,7 +148,7 @@ class FlashNotifier
     /**
      * Modify the most recently added message.
      *
-     * @param  array $overrides
+     * @param array $overrides
      * @return $this
      */
     protected function updateLastMessage($overrides = [])
@@ -117,13 +161,13 @@ class FlashNotifier
     /**
      * Flash an overlay modal.
      *
-     * @param  string|null $message
-     * @param  string      $title
+     * @param string|null $message
+     * @param string $title
      * @return $this
      */
     public function overlay($message = null, $title = 'Notice')
     {
-        if (! $message) {
+        if (!$message) {
             return $this->updateLastMessage(['title' => $title, 'overlay' => true]);
         }
 
@@ -141,6 +185,7 @@ class FlashNotifier
     {
         return $this->updateLastMessage(['important' => true]);
     }
+
     /**
      * Set the dismissability of the last flash message.
      *
@@ -184,15 +229,16 @@ class FlashNotifier
 
         return $this;
     }
+
     /**
      * Pop the last message off the stack and emit it to the Livewire component
      *
-     * @param  Livewire\Component $livewire
+     * @param Livewire\Component $livewire
      * @return \Tjmugova\LaravelFlash\LivewireFlashNotifier
      */
     public function livewire(Component $livewire)
     {
-        $livewire->emit('flashMessageAdded', $this->messages->pop());
+        $livewire->emit('flashMessageAdded',$this->messages->pop());
 
         return $this;
     }
@@ -207,9 +253,6 @@ class FlashNotifier
      */
     public function __call($method, $arguments)
     {
-        $messageTypes = config('livewire-flash.styles');
-        if (isset($messageTypes[$method])) {
-            return $this->message(null, $method);
-        }
+        return $this->message(null, $method);
     }
 }

@@ -4,6 +4,7 @@ namespace Tjmugova\LaravelFlash;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class LaravelFlashServiceProvider extends ServiceProvider
 {
@@ -42,5 +43,9 @@ class LaravelFlashServiceProvider extends ServiceProvider
         ], 'flash-config');
         Blade::component('flash::message', 'flash');
         Blade::component('flash::validation', 'flash-validation');
+        if (class_exists(Livewire::class)) {
+            Livewire::component('flash-message', \Tjmugova\LaravelFlash\Livewire\FlashMessage::class);
+            //Livewire::component('flash-container', \Tjmugova\LaravelFlash\Livewire\FlashContainer::class);
+        }
     }
 }
